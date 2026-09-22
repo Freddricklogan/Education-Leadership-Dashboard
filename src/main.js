@@ -1,6 +1,6 @@
 /** Binds the IPEDS dataset and the metrics to the page and the Executive Shell. */
 import { loadChartLib, makeCharts } from './charts.js';
-import { mountExecShell } from './exec-shell.js';
+import { mountExecShell, tokens } from './exec-shell.js';
 import { benchmark, composition, equity, graduationCurve, METRICS, peerCsv, peerGroup, programMix, ranking, rates } from './metrics.js';
 import { $, el, setText } from './ui.js';
 
@@ -41,7 +41,7 @@ function render() {
   tile('k-bach', 'bachelors');
 
   const curve = graduationCurve(f, state.peers);
-  charts.line($('gradChart'), curve.years.map((y) => `Within ${y} years`), [{ label: f.name, data: curve.own }, { label: 'Peer median', data: curve.peerMedian, colour: '#8b98b0', dash: [6, 4] }], 'Years since entry (fall 2017 cohort)', 'Cumulative graduation rate (%)');
+  charts.line($('gradChart'), curve.years.map((y) => `Within ${y} years`), [{ label: f.name, data: curve.own }, { label: 'Peer median', data: curve.peerMedian, colour: tokens().muted, dash: [6, 4] }], 'Years since entry (fall 2017 cohort)', 'Cumulative graduation rate (%)');
   const mix = programMix(f);
   charts.bars($('mixChart'), mix.map((m) => m.family), mix.map((m) => m.count), "Bachelor's degrees, 2022–23");
   const comp = composition(f);
@@ -111,6 +111,7 @@ async function boot() {
   render();
 
   shell = mountExecShell({
+  theme: 'ember',
     title: 'Education Leadership Dashboard',
     tagline: 'Institutional benchmarks for Illinois four-year institutions from the IPEDS 2023 collection: enrollment, graduation and retention, admissions, program mix and completion equity, each compared with a peer group you choose. Every number is a ratio of counts NCES published.',
     repo: 'https://github.com/Freddricklogan/Education-Leadership-Dashboard',
