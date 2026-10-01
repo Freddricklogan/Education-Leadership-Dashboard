@@ -58,7 +58,7 @@ flowchart LR
   end
   subgraph TB1["Trust Boundary: the browser (GitHub Pages, static)"]
     JSON[("data/ipeds-il-2023.json<br/>84 institutions, 140 KB")]:::data
-    subgraph PURE["Pure module (11 tests, 100% stmts)"]
+    subgraph PURE["Pure module (19 tests, 100% stmts)"]
       M["metrics.js<br/>rates · peerGroup · benchmark · equity · programMix · ranking"]:::service
     end
     MAIN["src/main.js<br/>selectors · tiles · tables · Executive Shell"]:::client
